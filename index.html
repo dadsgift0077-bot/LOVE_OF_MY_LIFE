@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <title>Princess Day for Heemali</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --pink: #ffc6e0;
+      --yellow: #ffeaa7;
+      --mint: #a8e6cf;
+      --lavender: #d0cfff;
+      --soft-blue: #b9e0fc;
+      --font-heading: 'Fredoka One', cursive;
+      --font-body: 'Quicksand', sans-serif;
+    }
+    html, body {
+      margin: 0; padding: 0;
+      width:100vw; height:100vh; min-height:100vh;
+      font-family: var(--font-body);
+      background: linear-gradient(135deg, var(--pink) 20%, var(--lavender) 95%);
+      -webkit-tap-highlight-color:rgba(0,0,0,0);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    .container {
+      width: 100vw;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0;
+      position: relative;
+      overflow: visible;
+      min-height: 90vh;
+      height: 100vh;
+      box-sizing: border-box;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+    }
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(30px);
+      transition: opacity 0.6s, transform 0.6s;
+      box-sizing: border-box;
+      padding: 18px 2vw;
+      z-index: 1;
+    }
+    .page.active {
+      opacity: 1;
+      pointer-events: all;
+      transform: translateY(0);
+      position: relative;
+    }
+    .heading {
+      font-size: 2rem;
+      font-family: var(--font-heading);
+      color: #d864a9;
+      margin-bottom: 12px;
+      text-align: center;
+      letter-spacing: 1.5px;
+      word-break: break-word;
+    }
+    .subheading {
+      font-size: 1rem;
+      color: #5d4b6a;
+      margin-bottom: 22px;
+      text-align: center;
+      letter-spacing: 0.2px;
+      word-break:break-word;
+    }
+    .cute-btn {
+      margin-top: 28px;
+      padding: 13px 12vw;
+      background: linear-gradient(90deg, var(--pink), var(--mint));
+      color: #fff;
+      border-radius: 30px;
+      font-family: var(--font-heading);
+      font-size: 1.09rem;
+      border: none;
+      box-shadow: 0 6px 14px -8px #7041a7;
+      cursor: pointer;
+      transition: transform 0.13s, background 0.2s;
+      outline: none;
+      width: 92vw;
+      max-width: 345px;
+      display: block;
+    }
+    .cute-btn:active { transform:scale(0.98); }
+    .cute-btn:hover { background: linear-gradient(90deg, var(--lavender), var(--soft-blue)); }
+    .flowers {
+      font-size: 1.5rem;
+      margin: 10px 0 16px 0;
+      text-align: center;
+      letter-spacing: 2px;
+      word-break:break-word;
+    }
+    .envelope {
+      background: #fff;
+      border: 3px solid var(--lavender);
+      border-radius: 20px;
+      padding: 7vw 4vw;
+      box-shadow: 0 6px 18px -4px #bfaef7;
+      margin: 22px 0;
+      font-size: 0.98rem;
+      position: relative;
+      min-width: 68vw;
+      max-width: 320px;
+      word-break:break-word;
+    }
+    .envelope:before {
+      content: "💌";
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2.1rem;
+    }
+    .cards-row {
+      display: flex;
+      flex-wrap:wrap;
+      gap: 12px;
+      margin-top: 10px;
+      margin-bottom: 22px;
+      justify-content: center;
+      width: 100%;
+    }
+    .flip-card {
+      width: 72vw;
+      max-width: 150px;
+      min-width: 92px;
+      height: 34vw;
+      max-height: 190px;
+      min-height: 88px;
+      perspective: 960px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 1 auto;
+      touch-action:manipulation;
+    }
+    .flip-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.55s cubic-bezier(.4,2,.6,.8);
+      transform-style: preserve-3d;
+    }
+    .flip-card.flipped .flip-inner {
+      transform: rotateY(180deg);
+    }
+    .flip-front, .flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px -6px #907ad6;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      font-size: 0.97rem;
+      border: 2.3px solid #eecaff;
+      text-align: center;
+      background: linear-gradient(120deg,#ffeaa7 45%, #ffd4e5 100%);
+      color: #825aae;
+      padding: 15px 5%;
+      box-sizing: border-box;
+      overflow: hidden;
+      word-break:break-word;
+      z-index:1;
+    }
+    .flip-back {
+      transform: rotateY(180deg);
+      background: linear-gradient(120deg,#b9e0fc 45%, #d0cfff 100%);
+      color: #5d4b6a;
+      font-weight: 600;
+      font-size: 0.99rem;
+      z-index:2;
+    }
+    .emoji {
+      font-size: 2.1rem;
+      margin-bottom: 4px;
+      margin-top: -4px;
+    }
+    .final-letter {
+      background: #fff;
+      border-radius: 20px;
+      padding: 7vw 3vw;
+      box-shadow: 0 7px 15px -4px #98a0ef;
+      font-family: var(--font-heading);
+      color: #e26fb7;
+      font-size: 1.02rem;
+      white-space: pre-line;
+      text-align: center;
+      margin-top: 24px;
+      margin-bottom: 11px;
+      border: 2px dashed var(--mint);
+      min-width: 65vw;
+      max-width: 330px;
+      position: relative;
+      word-break:break-word;
+    }
+    .emoji-group { font-size: 1.35rem; margin-bottom: 7px; }
+    .confetti {
+      position: absolute;
+      left: 50%;
+      top: -34px;
+      transform: translateX(-50%);
+      z-index: 1;
+      font-size: 1.7rem;
+      animation: pop 1s backwards;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.3) translateY(65px);}
+      88% { transform: scale(1.2);}
+      100% { transform: scale(1) translateX(-50%);}
+    }
+    /* Responsive for mobile */
+    @media (max-width: 700px) {
+      .container { max-width:98vw; }
+      .heading { font-size: 1.25rem; }
+      .subheading { font-size: 0.97rem; }
+      .page {min-height:75vh;}
+      .cute-btn {font-size:0.93rem; padding:11px 5vw;}
+      .cards-row {flex-direction: column; gap:9px;}
+      .flip-card { width:96vw; min-width:90vw; height:30vw; max-height:96px; min-height:63px;}
+      .flip-front,.flip-back{font-size:0.92rem;padding:11px 5px;}
+      .final-letter, .envelope { padding: 12px 7px; font-size: 0.97rem;}
+    }
+    @media (max-width:420px){
+      .flip-card{max-width:96vw; min-width:98vw; height:22vw; min-height:56px;}
+      .final-letter, .envelope { font-size:0.92rem; padding:9px 3px;}
+      .heading{font-size:1.07rem;}
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgmusic" src="golden_hour.mp3" autoplay loop></audio>
+  <div class="container">
+    <!-- Page 1 -->
+    <div class="page active" id="page1">
+      <div class="flowers">🌻🌸🌷🦦</div>
+      <div class="heading">Good morning, Heemali🦦</div>
+      <div class="subheading">
+        Since it’s Princess Day today, I had to be the first one to wish the prettiest princess I know<br />
+        <b>Princess Heemali</b> 🌻🌻🌻🌻🌻🌻🌻🌻🌻🌻
+      </div>
+      <button class="cute-btn" data-next="2">Open My Heart 💖</button>
+    </div>
+    <!-- Page 2 -->
+    <div class="page" id="page2">
+      <div class="envelope">
+        I hope when you opened your eyes today with the same calm glow u see this letter<br />
+        And since it’s Princess Day<br />
+        You don’t just look like a princess you carry yourself like one.<br />
+        I don’t know if anyone told you this today,<br />
+        but your presence makes things feel like 🏠 home<br /><br />
+        i hope i see u tomorrow in real life
+        <div class="emoji-group">💗🐼✨</div>
+      </div>
+      <button class="cute-btn" data-next="3">Next 🌸</button>
+    </div>
+    <!-- Page 3 -->
+    <div class="page" id="page3">
+      <div class="heading">Special Cards</div>
+      <div class="subheading">
+        Tap to reveal my thoughts!<br /><span style="font-size: 1.4rem;">🐼🦇</span>
+      </div>
+      <div class="cards-row">
+        <!-- Card 1 -->
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="emoji">🐼</span>
+              <span>Tap Me!</span>
+            </div>
+            <div class="flip-back">
+              Your presence – it’s calming,<br>like everything slows down around the rush world
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="emoji">🦇</span>
+              <span>Tap Me!</span>
+            </div>
+            <div class="flip-back">
+              Your kindness – even in small moments it shows 🤩
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="flip-card" onclick="flipCard(this)">
+          <div class="flip-inner">
+            <div class="flip-front">
+              <span class="emoji">✨</span>
+              <span>Tap Me!</span>
+            </div>
+            <div class="flip-back">
+              Your energy – warm, beautiful and somehow exactly what my day needs
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="cute-btn" data-next="4">View Final Letter 💌</button>
+    </div>
+    <!-- Page 4 -->
+    <div class="page" id="page4">
+      <div class="final-letter">
+        <span class="confetti">🎉💐🎊</span>
+        it felt right to wish the only girl who actually matches that word<br /><br />
+        And I want to say thank you, Heemali<br />
+        Thank you for being the kind of person who makes days feel nicer without even this<br />
+        Thank you for the small moments, the small smiles, the small conversations they stay longer with me than you know<br />
+        Thank you for being you – simply, effortlessly, beautifully you
+        <div class="emoji-group">🌷🧁🐼🌸🦇</div>
+      </div>
+      <button class="cute-btn" data-next="1">Back to Start 😊</button>
+    </div>
+  </div>
+  <script>
+    function showPage(nextPageNum) {
+      const currentPage = document.querySelector(".page.active");
+      const nextPage = document.getElementById("page" + nextPageNum);
+      if (currentPage === nextPage) return;
+      currentPage.style.opacity = "0";
+      currentPage.style.transform = "translateY(30px)";
+      currentPage.style.pointerEvents = "none";
+      setTimeout(() => {
+        currentPage.classList.remove("active");
+        nextPage.classList.add("active");
+        nextPage.style.opacity = "1";
+        nextPage.style.transform = "translateY(0)";
+        nextPage.style.pointerEvents = "all";
+        window.scrollTo(0, 0);
+      }, 580);
+    }
+    document.querySelectorAll(".cute-btn[data-next]").forEach((btn) => {
+      btn.addEventListener("click", () => showPage(btn.getAttribute("data-next")));
+    });
+    function flipCard(card) { card.classList.toggle("flipped"); }
+    window.addEventListener("DOMContentLoaded", () => {
+      const audio = document.getElementById("bgmusic");
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          document.body.addEventListener(
+            "click",
+            () => { audio.play(); },
+            { once: true }
+          );
+        });
+      }
+    });
+  </script>
+</body>
+</html>
