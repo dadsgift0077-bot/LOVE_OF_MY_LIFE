@@ -2,252 +2,192 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Princess Day for Almas</title>
-<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>Princess Day for Almas 👑</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Quicksand', sans-serif;
-        background: #f7d7f5;
-        overflow-x: hidden;
-    }
-
-    .container {
-        width: 100%;
-        max-width: 500px;
-        margin: auto;
-        padding: 20px;
-    }
-
-    .page {
-        display: none;
-        background: white;
-        border-radius: 25px;
-        padding: 30px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-        margin-top: 20px;
-    }
-    .page.active { display: block; }
-
-    h1 {
-        font-family: 'Fredoka One', cursive;
-        color: #d864a9;
-        text-align: center;
-        font-size: 2rem;
-    }
-
-    p { text-align: center; color: #444; }
-
-    .emoji { text-align: center; font-size: 2rem; }
-
-    .btn {
-        display: block;
-        margin: 25px auto;
-        padding: 15px 40px;
-        font-family: 'Fredoka One', cursive;
-        background: #ff6bad;
-        color: white;
-        border: none;
-        border-radius: 40px;
-        cursor: pointer;
-    }
-
-    /* Flip Cards */
-    .flip-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        margin-top: 30px;
-    }
-
-    .flip-card {
-        perspective: 1000px;
-        cursor: pointer;
-        height: 180px;
-    }
-
-    .flip-card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.6s;
-        transform-style: preserve-3d;
-    }
-
-    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
-
-    .flip-card-front, .flip-card-back {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        backface-visibility: hidden;
-        border-radius: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        padding: 15px;
-        font-size: 0.9rem;
-        text-align: center;
-    }
-
-    .flip-card-front { background: #ffe0f0; }
-    .flip-card-back {
-        background: #c8f7f0;
-        transform: rotateY(180deg);
-    }
+:root {
+    --pink: #ffc6e0;
+    --yellow: #ffeaa7;
+    --mint: #a8e6cf;
+    --lavender: #d0cfff;
+    --soft-blue: #b9e0fc;
+    --font-heading: 'Fredoka One', cursive;
+    --font-body: 'Quicksand', sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin:0; padding:0; width:100%; height:100%; font-family: var(--font-body); background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); overflow-x:hidden; scroll-behavior:smooth; }
+.container { max-width:500px; margin:0 auto; padding:20px; min-height:100vh; display:flex; align-items:center; justify-content:center; flex-direction:column; }
+.page { display:none; background:white; border-radius:30px; padding:40px 30px; box-shadow:0 20px 60px rgba(0,0,0,0.3); width:100%; animation:fadeIn 0.6s; }
+.page.active { display:block; }
+@keyframes fadeIn { from{opacity:0; transform:translateY(20px);} to{opacity:1; transform:translateY(0);} }
+h1 { font-family: var(--font-heading); font-size:2rem; color:#d864a9; text-align:center; margin-bottom:20px; line-height:1.3; }
+p { line-height:1.8; color:#5d4b6a; text-align:center; margin:15px 0; font-size:1.05rem; }
+.emoji { font-size:2rem; text-align:center; margin:20px 0; letter-spacing:5px; }
+.btn { background: linear-gradient(135deg, #ff6b9d, #c06c84); color:white; border:none; padding:15px 40px; border-radius:50px; font-size:1.1rem; font-family: var(--font-heading); cursor:pointer; margin:25px auto 0; display:block; box-shadow:0 10px 30px rgba(192,108,132,0.4); transition:transform 0.3s; }
+.btn:hover { transform: translateY(-3px); }
+.card, .countdown { padding:25px 20px; border-radius:20px; margin:20px 0; text-align:center; box-shadow:0 10px 25px rgba(0,0,0,0.2); }
+.countdown { background: linear-gradient(135deg, var(--mint), var(--soft-blue)); }
+.countdown h3 { color:white; margin-bottom:20px; font-family: var(--font-heading); font-size:1.3rem; text-shadow:2px 2px 4px rgba(0,0,0,0.2); }
+.time { display:flex; justify-content:space-around; gap:10px; }
+.time div { background:white; padding:15px 10px; border-radius:15px; flex:1; box-shadow:0 3px 10px rgba(0,0,0,0.1); }
+.time div strong { display:block; font-size:1.8rem; color:#d864a9; font-family: var(--font-heading); margin-bottom:5px; }
+.time div span { font-size:0.85rem; color:#666; }
+.flip-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; margin:30px 0; }
+.flip-card { height:200px; perspective:1000px; cursor:pointer; position:relative; }
+.flip-card-inner { position:relative; width:100%; height:100%; transition: transform 0.6s; transform-style: preserve-3d; }
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card-front, .flip-card-back { position:absolute; width:100%; height:100%; backface-visibility:hidden; border-radius:20px; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; text-align:center; box-shadow:0 5px 15px rgba(0,0,0,0.1); }
+.flip-card-front { background: linear-gradient(135deg,#ffeaa7,#ffd4e5); color:#825aae; z-index:2; }
+.flip-card-front .emoji-large { font-size:3rem; margin-bottom:10px; }
+.flip-card-back { background: linear-gradient(135deg,var(--mint),var(--soft-blue)); color:#5d4b6a; transform:rotateY(180deg); z-index:1; }
+/* Effects */
+.float-heart{position:fixed;bottom:-40px;font-size:2rem;animation:heartFloat linear forwards;pointer-events:none;}
+@keyframes heartFloat{0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-120vh) scale(1.5);opacity:0;}}
+.confetti{position:fixed;top:-20px;width:10px;height:10px;animation:confettiFall linear forwards;border-radius:50%;}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0);}100%{transform:translateY(120vh) rotate(720deg);opacity:0;}}
+body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,rgba(255,200,255,0.25),transparent 70%);pointer-events:none;}
+.page.active *{animation:popIn 0.6s ease;}
+@keyframes popIn{0%{opacity:0;transform:scale(0.9);}100%{opacity:1;transform:scale(1);}}
+@media (max-width:600px){ h1{font-size:1.6rem;} p{font-size:0.95rem;} .time div strong{font-size:1.5rem;} .btn{padding:12px 30px;font-size:1rem;} .flip-card{height:180px;} .flip-grid{gap:15px;} }
 </style>
 </head>
 <body>
+<audio id="bgmusic" src="golden_hour.mp3" loop></audio>
 <div class="container">
-    <div class="page active" id="page1">
-        <div class="emoji">🌻🌸🌷👑</div>
-        <h1>Good Morning, Princess!</h1>
-        <p>Since it's Princess Day today, I had to be the first one to wish the prettiest princess I know</p>
-        <p><strong>Princess Almas 💞</strong></p>
-        <button class="btn" onclick="showPage(2)">Open My Heart 💖</button>
+  <!-- Page 1 -->
+  <div class="page active" id="page1">
+    <div class="emoji">🌻🌸🌷👑</div>
+    <h1>Good Morning, Princess!</h1>
+    <p>Since it's Princess Day today, I had to be the first one to wish the prettiest princess I know</p>
+    <p><strong>Princess Almas 💞</strong></p>
+    <button class="btn" onclick="showPage(2)">Open My Heart 💖</button>
+  </div>
+
+  <!-- Page 2 -->
+  <div class="page" id="page2">
+    <div class="countdown">
+      <h3>✨ Our Journey Together ✨</h3>
+      <div class="time">
+        <div><strong id="days">0</strong><span>Days</span></div>
+        <div><strong id="hours">0</strong><span>Hours</span></div>
+        <div><strong id="minutes">0</strong><span>Minutes</span></div>
+      </div>
     </div>
-
-    <div class="page" id="page2">
-        <p>I hope when you opened your eyes today, you see this letter</p>
-        <p><strong>And since it's Princess Day</strong></p>
-        <p>You don't just look like a princess, you carry yourself like one</p>
-        <p>Your presence makes things feel like 🏠 home</p>
-        <div class="emoji">💗🐼✨</div>
-        <button class="btn" onclick="showPage(3)">Next 🌸</button>
+    <div class="card">
+      <p>I hope when you opened your eyes today, you see this letter</p>
+      <p><strong>And since it's Princess Day</strong></p>
+      <p>You don't just look like a princess, you carry yourself like one</p>
+      <p>Your presence makes things feel like 🏠 home</p>
+      <div class="emoji">💗🐼✨</div>
     </div>
+    <button class="btn" onclick="showPage(3)">Next 🌸</button>
+  </div>
 
-    <div class="page" id="page3">
-        <h1>Special Messages for Almas</h1>
-        <p style="color:#d864a9; font-weight:600; text-align:center;">✨ Tap each card to reveal! ✨</p>
-
-        <div class="flip-grid">
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div style="font-size:2rem;">🐼</div>
-                        <p>Tap Me!</p>
-                    </div>
-                    <div class="flip-card-back">
-                        <p><strong>Your Presence</strong><br><br>Makes me feel like everything slows down in this world</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div style="font-size:2rem;">🦇</div>
-                        <p>Tap Me!</p>
-                    </div>
-                    <div class="flip-card-back">
-                        <p><strong>Your love</strong><br><br>Makes me the happiest man on earth 🤩</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div style="font-size:2rem;">✨</div>
-                        <p>Tap Me!</p>
-                    </div>
-                    <div class="flip-card-back">
-                        <p><strong>Your Yappings</strong><br><br>Exactly what my day needs baby</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div style="font-size:2rem;">🌸</div>
-                        <p>Tap Me!</p>
-                    </div>
-                    <div class="flip-card-back">
-                        <p><strong>Your Smile</strong><br><br>Lights up my heart everytime my love</p>
-                    </div>
-                </div>
-            </div>
+  <!-- Page 3 -->
+  <div class="page" id="page3">
+    <h1>Special Messages for Almas</h1>
+    <p style="color:#d864a9; font-weight:600;">✨ Tap each card to reveal! ✨</p>
+    <div class="flip-grid">
+      <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+          <div class="flip-card-front"><div class="emoji-large">🐼</div><p>Tap Me!</p></div>
+          <div class="flip-card-back"><p><strong>Your Presence</strong><br><br>Makes me feel like everything slows down in this world</p></div>
         </div>
-
-        <button class="btn" onclick="showPage(4)">Final Letter 💌</button>
+      </div>
+      <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+          <div class="flip-card-front"><div class="emoji-large">🦇</div><p>Tap Me!</p></div>
+          <div class="flip-card-back"><p><strong>Your love</strong><br><br>Makes me the happiest man on earth 🤩</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+          <div class="flip-card-front"><div class="emoji-large">✨</div><p>Tap Me!</p></div>
+          <div class="flip-card-back"><p><strong>Your Yappings</strong><br><br>Exactly what my day needs baby</p></div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="flipCard(this)">
+        <div class="flip-card-inner">
+          <div class="flip-card-front"><div class="emoji-large">🌸</div><p>Tap Me!</p></div>
+          <div class="flip-card-back"><p><strong>Your Smile</strong><br><br>Lights up my heart everytime my love</p></div>
+        </div>
+      </div>
     </div>
+    <button class="btn" onclick="showPage(4)">Final Letter 💌</button>
+  </div>
 
-    <div class="page" id="page4">
-        <div class="emoji">🎉💐🎊</div>
-        <h1>Thank You, Almas</h1>
-        <p>Thank you for coming back to my life once again, thank you for calling me that day, thank you for asking me out,thank you for making me feel alive and happy again</p>
-        <p>Thank you for the small moments, the smiles, the conversations – they stay with me longer than you know</p>
-        <p>Give me all of you, take everything of me!!!</p>
-        <p><i>I FUCKING LOVE YOU SO MUCH ALMAS KAMAR WAJITH</i></p>
-        <div class="emoji">🌷🧁🐼🌸🦇👑</div>
-        <button class="btn" onclick="showPage(1)">Back to Start 😊</button>
+  <!-- Page 4 -->
+  <div class="page" id="page4">
+    <div class="emoji">🎉💐🎊</div>
+    <h1>Thank You, Almas</h1>
+    <div class="card">
+      <p>Thank you for coming back to my life once again, thank you for calling me that day, thank you for asking me out, thank you for making me feel alive and happy again</p>
+      <p>Thank you for the small moments, the smiles, the conversations – they stay with me longer than you know</p>
+      <p>Give me all of you, take everything of me!!!</p>
+      <p><i>I FUCKING LOVE YOU SO MUCH ALMAS KAMAR WAJITH</i></p>
+      <div class="emoji">🌷🧁🐼🌸🦇👑</div>
     </div>
+    <button class="btn" onclick="showPage(1)">Back to Start 😊</button>
+  </div>
 </div>
 
 <script>
-function showPage(num) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page' + num).classList.add('active');
-    window.scrollTo(0,0);
+function showPage(pageNum){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page'+pageNum).classList.add('active');
+  window.scrollTo(0,0);
+  burstConfetti();
 }
-</script>
-<script>
+
+function flipCard(card){ card.classList.toggle('flipped'); }
+
+// Countdown
+function updateCountdown(){
+  const startDate = new Date('2025-09-15');
+  const now = new Date();
+  const diff = now - startDate;
+  const days = Math.floor(diff/(1000*60*60*24));
+  const hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const minutes = Math.floor((diff%(1000*60*60))/(1000*60));
+  document.getElementById('days').textContent=days;
+  document.getElementById('hours').textContent=hours;
+  document.getElementById('minutes').textContent=minutes;
+}
+setInterval(updateCountdown,60000);
+updateCountdown();
+
+// Background music autoplay
+document.body.addEventListener('click',function(){
+  document.getElementById('bgmusic').play().catch(e=>console.log(e));
+},{once:true});
+
 // Floating hearts
-function spawnHearts(){for(let i=0;i<6;i++){const h=document.createElement('div');h.className='float-heart';h.textContent='❤️';h.style.left=Math.random()*100+'vw';h.style.animationDuration=3+Math.random()*3+'s';document.body.appendChild(h);setTimeout(()=>h.remove(),6000);}}
+function spawnHearts(){
+  for(let i=0;i<6;i++){
+    const h=document.createElement('div');
+    h.className='float-heart';
+    h.textContent='❤️';
+    h.style.left=Math.random()*100+'vw';
+    h.style.animationDuration=(3+Math.random()*3)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  }
+}
 setInterval(spawnHearts,2000);
 
-// Confetti burst on page change
-function burstConfetti(){for(let i=0;i<20;i++){const c=document.createElement('div');c.className='confetti';c.style.left=Math.random()*100+'vw';c.style.backgroundColor='hsl('+Math.random()*360+',80%,60%)';c.style.animationDuration=1+Math.random()*1+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),2000);}}
-
-// Wrap showPage
-const _sp = showPage;
-showPage = function(n){_sp(n);burstConfetti();};
-
-// Love meter animation trigger
-function pulseLove(){document.querySelectorAll('.love-meter').forEach(m=>m.classList.add('pulse'));setTimeout(()=>{document.querySelectorAll('.love-meter').forEach(m=>m.classList.remove('pulse'));},1500);} 
+// Confetti burst
+function burstConfetti(){
+  for(let i=0;i<20;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.left=Math.random()*100+'vw';
+    c.style.backgroundColor='hsl('+Math.random()*360+',80%,60%)';
+    c.style.animationDuration=(1+Math.random()*1)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),2000);
+  }
+}
 </script>
-
-<style>
-/* Floating Hearts */
-.float-heart{position:fixed;bottom:-40px;font-size:2rem;animation:heartFloat linear forwards;pointer-events:none;}
-@keyframes heartFloat{0%{transform:translateY(0) scale(1);opacity:1;}100%{transform:translateY(-120vh) scale(1.5);opacity:0;}}
-
-/* Sparkle Cursor */
-body{cursor:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAMAAAC67D+PAAAABlBMVEUAAAD///+l2Z/dAAAAE0lEQVQI12NgwAbGgBkYhgYBABoAAfPgWClaAAAAAElFTkSuQmCC'),auto;}
-
-/* Confetti */
-.confetti{position:fixed;top:-20px;width:10px;height:10px;animation:confettiFall linear forwards;}
-@keyframes confettiFall{0%{transform:translateY(0) rotate(0);}100%{transform:translateY(120vh) rotate(720deg);opacity:0;}}
-
-/* Glassmorphic glowing card */
-.card, .countdown{backdrop-filter:blur(15px);background:rgba(255,255,255,0.25)!important;border:1px solid rgba(255,255,255,0.4);box-shadow:0 0 25px rgba(255,255,255,0.4);} 
-
-/* 3D hover effect */
-.flip-card-inner{transition:transform 0.6s, box-shadow 0.3s;} 
-.flip-card:hover .flip-card-inner{transform:scale(1.05) rotateX(8deg) rotateY(8deg);box-shadow:0 20px 40px rgba(0,0,0,0.2);} 
-
-/* Soft gradients global */
-.page{background:linear-gradient(135deg,rgba(255,255,255,0.7),rgba(255,240,255,0.8));}
-
-/* Love meter */
-.love-meter{width:100%;height:12px;border-radius:10px;background:#ffd6e8;overflow:hidden;margin:20px 0;} 
-.love-meter::after{content:'';display:block;width:80%;height:100%;background:linear-gradient(90deg,#ff6b9d,#ff99c8);border-radius:10px;transition:0.3s;} 
-.pulse::after{animation:pulseBar 1.2s;} 
-@keyframes pulseBar{0%{width:80%;}50%{width:100%;}100%{width:80%;}} 
-
-/* Pop-in animation */
-.page.active *{animation:popIn 0.6s ease;} 
-@keyframes popIn{0%{opacity:0;transform:scale(0.9);}100%{opacity:1;transform:scale(1);} }
-
-/* Dreamy glow */
-body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at center,rgba(255,200,255,0.25),transparent 70%);pointer-events:none;}
-</style>
-
-
-
 </body>
 </html>
